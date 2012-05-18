@@ -105,7 +105,7 @@ function og_discussions_term_title($gid, $term) {
 function og_discussions_forum_page($gid) {
   global $user;
   $group = og_load($gid);
-  $terms = taxonomy_get_tree(6);
+  $terms = taxonomy_get_tree(1);
   $parents = array();
   $childrens = array(); 
   $output = '';
@@ -237,7 +237,7 @@ function og_discussions_thread_count($gid, $tid) {
   $query->addExpression('COUNT(*)');
   $query->condition('t.tid', $tid, '=');
   $query->condition('f.group_audience_gid', $gid, '=');
-  $query->condition('f.bundle', "discussion", '=');
+  $query->condition('f.bundle', "og_discussion", '=');
   return $query->execute()->fetchField();	
 }
 
@@ -280,7 +280,7 @@ function og_discussions_last_comment_statistics($gid, $tid) {
   $query->fields('t', array('nid'));
   $query->condition('t.tid', $tid, '=');
   $query->condition('f.group_audience_gid', $gid, '=');
-  $query->condition('f.bundle', "discussion", '=');
+  $query->condition('f.bundle', "og_discussion", '=');
   $result = $query->execute();
   $nids = array();
   foreach ($result as $record) {
